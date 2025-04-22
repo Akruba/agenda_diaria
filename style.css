@@ -1,0 +1,294 @@
+:root {
+    --primary-color: #005A9C; /* Azul principal */
+    --secondary-color: #ADD8E6; /* Azul claro */
+    --accent-color: #FFA500; /* Naranja para acentos */
+    --text-color: #333;
+    --bg-color: #f4f7f6;
+    --border-color: #ccc;
+    --item-bg: #fff;
+    --item-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    --drop-zone-bg: #e0f7fa; /* Azul muy claro para indicar drop */
+    --delete-btn-color: #dc3545; /* Rojo para borrar */
+    --delete-btn-hover: #c82333;
+
+    /* Colores para tipos de item (opcional) */
+    --item-routine-border: #6c757d; /* Gris */
+    --item-school-border: #17a2b8;  /* Cyan */
+    --item-activity-border: #fd7e14; /* Naranja */
+    --item-task-border: #007bff;   /* Azul */
+    --item-habit-border: #28a745;  /* Verde */
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.5;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    padding: 25px;
+    max-width: 1600px;
+    margin: 20px auto;
+}
+
+/* Columnas principales */
+.context-box {
+    flex: 1 1 350px; /* Crece, base 350px */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+    max-height: 80vh; /* Limitar altura */
+    overflow-y: auto; /* Scroll si es necesario */
+}
+.planner-box {
+    flex: 2 1 550px; /* Crece más, base 550px */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+}
+.seinfeld-box {
+    flex: 1 1 400px; /* Crece, base 400px */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    border: 1px solid var(--border-color);
+}
+
+
+h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 8px;
+    font-size: 1.4em;
+}
+h3 {
+    color: var(--primary-color);
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+.context-box h3:first-of-type {
+    margin-top: 0;
+}
+
+.source-block {
+    margin-bottom: 20px;
+}
+
+.source-list {
+    padding-left: 5px; /* Pequeña indentación */
+}
+
+.draggable-item {
+    background-color: var(--item-bg);
+    border: 1px solid var(--border-color);
+    border-left-width: 4px; /* Borde de color para tipo */
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    cursor: grab;
+    box-shadow: var(--item-shadow);
+    transition: box-shadow 0.2s ease, opacity 0.2s ease;
+    font-size: 0.9em;
+    position: relative; /* Para pseudo-elementos si se usan */
+}
+
+.draggable-item:hover {
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.draggable-item.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+    box-shadow: none;
+}
+
+/* Colores por tipo */
+.draggable-item[data-type="routine"] { border-left-color: var(--item-routine-border); }
+.draggable-item[data-type="school"] { border-left-color: var(--item-school-border); }
+.draggable-item[data-type="activity"] { border-left-color: var(--item-activity-border); }
+.draggable-item[data-type="task"] { border-left-color: var(--item-task-border); }
+.draggable-item[data-type="habit"] { border-left-color: var(--item-habit-border); }
+
+
+.item-duration {
+    font-size: 0.85em;
+    color: #666;
+    margin-left: 8px;
+    font-style: italic;
+}
+.item-priority {
+    font-weight: bold;
+    margin-left: 8px;
+    color: var(--primary-color);
+}
+
+
+/* Agenda Diaria */
+.planner-box .instructions {
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#daily-agenda {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 60px 1fr; /* Hora | Contenido */
+    gap: 1px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+    background-color: var(--border-color); /* Fondo para ver gaps */
+}
+
+.time-slot {
+    display: contents;
+}
+
+.time-label {
+    background-color: var(--secondary-color);
+    padding: 10px 5px;
+    text-align: center;
+    font-size: 0.85em;
+    font-weight: bold;
+    border-right: 1px solid var(--border-color);
+    color: var(--primary-color);
+}
+
+.drop-zone {
+    background-color: #fff;
+    min-height: 50px; /* Altura mínima */
+    padding: 8px;
+    transition: background-color 0.2s ease;
+    /* border-bottom: 1px dotted var(--border-color); No necesita borde con el gap del grid */
+}
+
+.drop-zone.drag-over {
+    background-color: var(--drop-zone-bg);
+}
+
+/* Items DENTRO de la agenda */
+.agenda-item {
+    /* Hereda mucho de .draggable-item pero ajustamos */
+    position: relative; /* Necesario para el botón de borrar */
+    cursor: move; /* Para indicar que se puede mover dentro */
+    margin-bottom: 5px; /* Espacio entre items en el mismo slot */
+    animation: fadeIn 0.3s ease; /* Animación al soltar */
+    font-size: 0.85em; /* Un poco más pequeño en la agenda */
+    padding-right: 25px; /* Espacio para el botón de borrar */
+}
+
+.agenda-item.dragging { /* Cuando se mueve DENTRO de la agenda */
+     opacity: 0.5;
+     cursor: grabbing;
+     box-shadow: none;
+}
+
+.delete-item-btn {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    background-color: var(--delete-btn-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.agenda-item:hover .delete-item-btn {
+    opacity: 1;
+}
+
+.delete-item-btn:hover {
+    background-color: var(--delete-btn-hover);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Seinfeld Tracker (js-year-calendar) */
+#calendar {
+    margin-top: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    padding: 10px;
+    /* La librería aplicará su propio estilo, esto es solo el contenedor */
+}
+
+/* Estilo personalizado para día marcado (la librería usa clases) */
+.calendar-day.seinfeld-marked .day-content {
+    background-color: var(--accent-color) !important; /* Sobrescribir librería */
+    color: white !important;
+    border-radius: 50%; /* Hacerlo un círculo */
+    font-weight: bold;
+    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+#reset-tracker {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    font-size: 0.9em;
+}
+#reset-tracker:hover {
+     background-color: #004175; /* Azul más oscuro */
+}
+
+/* Media Query */
+@media (max-width: 1200px) {
+     .seinfeld-box { flex-basis: 300px; } /* Reducir un poco */
+}
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+    .context-box, .planner-box, .seinfeld-box {
+        flex-basis: auto;
+        max-height: none; /* Quitar límite de altura en modo columna */
+        overflow-y: visible;
+    }
+     .planner-box { order: 1; } /* Mover agenda al principio */
+     .context-box { order: 2; }
+     .seinfeld-box { order: 3; }
+}

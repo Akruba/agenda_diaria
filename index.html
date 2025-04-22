@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación Interactiva - Agenda de Alex</title>
+    <!-- JS Year Calendar CSS -->
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.css" />
+    <!-- Nuestro CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Simulación Interactiva: Planificando el Día de Alex (Martes)</h1>
+    </header>
+
+    <main class="container">
+
+        <section id="context-sources" class="context-box">
+            <h2>Contexto y Tareas de Alex (Arrastrables)</h2>
+
+            <div class="source-block">
+                <h3>Rutina Matutina</h3>
+                <div id="source-morning" class="source-list">
+                    <!-- Items generados por JS -->
+                </div>
+            </div>
+
+            <div class="source-block">
+                <h3>Horario Escolar (Eventos Fijos)</h3>
+                <div id="source-school" class="source-list">
+                     <!-- Items generados por JS -->
+                </div>
+            </div>
+
+            <div class="source-block">
+                <h3>Tarde / Noche</h3>
+                <div id="source-afternoon" class="source-list">
+                     <!-- Items generados por JS -->
+                </div>
+            </div>
+
+            <div class="source-block">
+                <h3>Tareas Pendientes</h3>
+                <div id="source-tasks" class="source-list">
+                     <!-- Items generados por JS -->
+                </div>
+            </div>
+
+            <div class="source-block">
+                <h3>Meta Personal / Hábito</h3>
+                <div id="source-habit" class="source-list">
+                    <!-- Items generados por JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="planner" class="planner-box">
+            <h2>Agenda Diaria (Arrastra aquí)</h2>
+            <p class="instructions">Arrastra elementos aquí. Puedes moverlos o eliminarlos (X) una vez colocados.</p>
+            <div id="daily-agenda">
+                <!-- Las horas se generan con JS -->
+            </div>
+        </section>
+
+        <section id="seinfeld-tracker" class="seinfeld-box">
+            <h2>Cadena Seinfeld: Hábito de Lectura</h2>
+            <div id="calendar"></div> <!-- Contenedor para js-year-calendar -->
+            <button id="reset-tracker">Limpiar Marcas del Mes</button>
+        </section>
+
+    </main>
+
+    <!-- JS Year Calendar JS -->
+    <script src="https://unpkg.com/js-year-calendar@latest/dist/js-year-calendar.min.js"></script>
+    <!-- Nuestro JS -->
+    <script src="script.js"></script>
+</body>
+</html>
